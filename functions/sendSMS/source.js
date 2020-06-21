@@ -3,9 +3,9 @@
  * 
  * When the fuck will we move this to VCS and stop using Stitch?
  */
- 
- const PATH_LUT = {};
- 
+
+const PATH_LUT = {};
+
 /**
  * Return the current UTC time in HH:MM format.
  * 
@@ -84,12 +84,12 @@ function getDanbooruImageURL(...tags) {
       'tags': ['solo', ...tags], // WARNING: Do not pass more than one tag (API limits 2 tags/search)
     }
   })
-  .then(response => {
-    const data = EJSON.parse(response.body.text());
-    const { file_size, file_url, large_file_url } = data[0];
-    return file_size >= 5242880 ? large_file_url : file_url; // Twilio does not support images over 5 Mb in size.
-  })
-  .catch(err => console.error(`Failed to retrieve image URL: ${err}`));
+    .then(response => {
+      const data = EJSON.parse(response.body.text());
+      const { file_size, file_url, large_file_url } = data[0];
+      return file_size >= 5242880 ? large_file_url : file_url; // Twilio does not support images over 5 Mb in size.
+    })
+    .catch(err => console.error(`Failed to retrieve image URL: ${err}`));
 }
 
 /**
@@ -106,18 +106,18 @@ function getWeatherData(latitude, longitude) {
   else if (180 - Math.abs(longitude) < 0) throw new RangeError('Longitude must be beween -180 and 180.')
   const API_KEY = context.values.get('CLIMACELL_API_KEY');
   return context.http.get({
-      scheme: 'https',
-      host: 'api.climacell.co',
-      path: '/v3/weather/forecast/daily',
-      query: {
-        'lat': [`${latitude}`],
-        'lon': [`${longitude}`],
-        'apikey': [API_KEY],
-        'unit_system': ['us'],
-        'end_time': ['now'],
-        'fields': ['wind_speed', 'wind_direction', 'temp', 'weather_code']
-      }
-    })
+    scheme: 'https',
+    host: 'api.climacell.co',
+    path: '/v3/weather/forecast/daily',
+    query: {
+      'lat': [`${latitude}`],
+      'lon': [`${longitude}`],
+      'apikey': [API_KEY],
+      'unit_system': ['us'],
+      'end_time': ['now'],
+      'fields': ['wind_speed', 'wind_direction', 'temp', 'weather_code']
+    }
+  })
     .then(response => {
       const data = EJSON.parse(response.body.text());
       return data[0]; // We only care about the first dataset.
@@ -159,18 +159,18 @@ There will be winds of ${data.wind_speed[0].min.value} ${data.wind_speed[0].min.
  * 
  * @todo 
  */
-exports = function(){
+exports = function () {
   const IS_TESTING = context.values.get('IS_TESTING'); // In-script boolean 'HARDCODE_WEATHER' has been deprecated in favor of a global flag
-  
+
   const twilio = context.services.get('Twilio');
   const http = context.services.get('Weather');
   const mongodb = context.services.get('mongodb-atlas');
   const users = mongodb.db('data').collection(IS_TESTING ? 'test' : 'users');
-  
+
   const TWILIO_SID = IS_TESTING ? context.values.get('TWILIO_TEST_SID') : context.values.get('TWILIO_SID');
   const TWILIO_AUTH_KEY = IS_TESTING ? context.values.get('TWILIO_TEST_AUTH_KEY') : context.values.get('TWILIO_AUTH_KEY');
   const TWILIO_PHONE = IS_TESTING ? context.values.get('TWILIO_TEST_PHONE') : context.values.get('TWILIO_PHONE');
-  
+
   const timeString = getCurrentTime();
   const userFilter = IS_TESTING ? {} : { sendTime: timeString };
   return users.find(userFilter)
@@ -183,15 +183,15 @@ exports = function(){
         if (!IS_TESTING && (coordinates === undefined || sendTime === undefined || phone === undefined)) { // This should NEVER happen. Database should never have undefined fields
           throw new TypeError(`User ${_id} has invalid fields. Please fix their entry in the database.`)
         }
-        
-        const [ longitude, latitude ] = coordinates; // WHY IS IT LONGITUDE LATITUDE? 
-        
+
+        const [longitude, latitude] = coordinates; // WHY IS IT LONGITUDE LATITUDE? 
+
         getWeatherData(latitude, longitude)
           .then(data => {
             const body = constructMMSBody(data);
             const danbooruTag = getTagFromWeatherCondition(data.weather_code);
             getDanbooruImageURL(danbooruTag).then(url => {
-              http.post({
+              context.http.post({
                 scheme: 'https',
                 host: 'api.twilio.com',
                 path: `/2010-04-01/Accounts/${TWILIO_SID}/Messages.json`,
@@ -205,16 +205,16 @@ exports = function(){
                 },
                 encodeBodyAsJSON: true
               })
-              .then(response => {
-                const data = EJSON.parse(response.body.text());
-                console.log(`Twilio response: ${response.body.text()}`);
-              })
-              .catch(err => console.error(`Failed to send MMS: ${err}`));
-            console.log(`Sent notification to ${phone}`);
+                .then(response => {
+                  const data = EJSON.parse(response.body.text());
+                  console.log(`Twilio response: ${response.body.text()}`);
+                })
+                .catch(err => console.error(`Failed to send MMS: ${err}`));
+              console.log(`Sent notification to ${phone}`);
+            })
+              .catch(err => console.error(`Failed to retrieve image URL: ${err}`));
           })
-          .catch(err => console.error(`Failed to retrieve image URL: ${err}`));
-        })
-        .catch(err => console.error(`Failed to retrieve weather data: ${err}`));
+          .catch(err => console.error(`Failed to retrieve weather data: ${err}`));
       });
     })
     .catch(err => console.error(`Failed to enumerate users: ${err}`));
