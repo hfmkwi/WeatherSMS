@@ -163,7 +163,6 @@ exports = function () {
   const IS_TESTING = context.values.get('IS_TESTING'); // In-script boolean 'HARDCODE_WEATHER' has been deprecated in favor of a global flag
 
   const twilio = context.services.get('Twilio');
-  const http = context.services.get('Weather');
   const mongodb = context.services.get('mongodb-atlas');
   const users = mongodb.db('data').collection(IS_TESTING ? 'test' : 'users');
 
