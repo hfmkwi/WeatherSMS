@@ -1,0 +1,69 @@
+{
+    "id": "5ee578f26f90897673a6ed30",
+    "database": "data",
+    "collection": "test",
+    "roles": [
+        {
+            "name": "Data Handler",
+            "apply_when": {},
+            "fields": {
+                "_id": {
+                    "read": true
+                },
+                "coordinates": {
+                    "read": true
+                },
+                "phone": {
+                    "read": true
+                },
+                "sendTime": {
+                    "read": true
+                }
+            },
+            "insert": false,
+            "delete": false,
+            "additional_fields": {}
+        },
+        {
+            "name": "Webhook",
+            "apply_when": {},
+            "fields": {
+                "_id": {
+                    "read": true
+                },
+                "coordinates": {
+                    "write": true
+                },
+                "phone": {
+                    "write": true
+                },
+                "sendTime": {
+                    "write": true
+                }
+            },
+            "insert": true,
+            "delete": false,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "title": "test",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "coordinates": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "double"
+                }
+            },
+            "phone": {
+                "bsonType": "string"
+            },
+            "sendTime": {
+                "bsonType": "string"
+            }
+        }
+    }
+}

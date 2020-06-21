@@ -1,0 +1,12 @@
+{
+    "id": "5edc60d93f6bea0402425adf",
+    "name": "Twilio",
+    "type": "twilio",
+    "config": {
+        "sid": "ACfb58ef3c6521355a67b39b726cf31ccf"
+    },
+    "secret_config": {
+        "auth_token": "Main"
+    },
+    "version": 1
+}

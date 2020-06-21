@@ -1,0 +1,13 @@
+{
+    "id": "5ee50a58d2f33fd96a7c1337",
+    "name": "HARDCODED_LOCATION",
+    "value": [
+        {
+            "$numberDouble": "77.0369"
+        },
+        {
+            "$numberDouble": "38.9072"
+        }
+    ],
+    "from_secret": false
+}

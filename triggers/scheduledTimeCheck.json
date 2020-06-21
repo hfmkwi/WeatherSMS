@@ -1,0 +1,10 @@
+{
+    "id": "5edfd1ce78ce5341c3f98878",
+    "name": "scheduledTimeCheck",
+    "type": "SCHEDULED",
+    "config": {
+        "schedule": "*/15 * * * *"
+    },
+    "function_name": "sendSMS",
+    "disabled": false
+}

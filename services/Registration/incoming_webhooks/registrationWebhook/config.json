@@ -1,0 +1,14 @@
+{
+    "id": "5edc6c55e0aca46b4e945730",
+    "name": "registrationWebhook",
+    "run_as_authed_user": false,
+    "run_as_user_id": "",
+    "run_as_user_id_script_source": "",
+    "options": {
+        "httpMethod": "POST",
+        "validationMethod": "NO_VALIDATION"
+    },
+    "respond_result": false,
+    "fetch_custom_user_data": false,
+    "create_user_on_auth": false
+}

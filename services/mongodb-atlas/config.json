@@ -1,0 +1,11 @@
+{
+    "id": "5edc18cf7b4cc3d86cc9304c",
+    "name": "mongodb-atlas",
+    "type": "mongodb-atlas",
+    "config": {
+        "clusterName": "RainyCluster",
+        "readPreference": "primary",
+        "wireProtocolEnabled": false
+    },
+    "version": 1
+}

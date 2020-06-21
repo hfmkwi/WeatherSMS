@@ -1,0 +1,7 @@
+{
+    "id": "5edc610a44bede081b266298",
+    "name": "SMSRule",
+    "actions": [
+        "send"
+    ]
+}

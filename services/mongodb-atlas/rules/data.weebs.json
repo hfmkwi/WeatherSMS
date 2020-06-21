@@ -1,0 +1,67 @@
+{
+    "id": "5ee57924d2f33fd96aa1b1fd",
+    "database": "data",
+    "collection": "weebs",
+    "roles": [
+        {
+            "name": "Data Handler",
+            "apply_when": {},
+            "fields": {
+                "_id": {
+                    "read": true
+                },
+                "coordinates": {
+                    "read": true
+                },
+                "phone": {
+                    "read": true
+                },
+                "sendTime": {
+                    "read": true
+                }
+            },
+            "insert": false,
+            "delete": false,
+            "additional_fields": {}
+        },
+        {
+            "name": "Webhook",
+            "apply_when": {},
+            "fields": {
+                "_id": {},
+                "coordinates": {
+                    "write": true
+                },
+                "phone": {
+                    "write": true
+                },
+                "sendTime": {
+                    "write": true
+                }
+            },
+            "insert": true,
+            "delete": false,
+            "additional_fields": {}
+        }
+    ],
+    "schema": {
+        "title": "weebs",
+        "properties": {
+            "_id": {
+                "bsonType": "objectId"
+            },
+            "coordinates": {
+                "bsonType": "array",
+                "items": {
+                    "bsonType": "double"
+                }
+            },
+            "phone": {
+                "bsonType": "string"
+            },
+            "sendTime": {
+                "bsonType": "string"
+            }
+        }
+    }
+}
