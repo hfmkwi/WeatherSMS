@@ -3,7 +3,6 @@
     "name": "mongodb-atlas",
     "type": "mongodb-atlas",
     "config": {
-        "clusterName": "RainyCluster",
         "readPreference": "primary",
         "wireProtocolEnabled": false
     },

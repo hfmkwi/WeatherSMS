@@ -3,8 +3,6 @@
  * 
  * When the fuck will we move this to VCS and stop using Stitch?
  */
-
-console.log('Test');
  
  const PATH_LUT = {};
  

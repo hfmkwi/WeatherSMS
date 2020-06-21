@@ -1,9 +1,5 @@
 {
-    "app_id": "sugoisms-ipxdi",
     "config_version": 20200603,
-    "name": "sugoiSMS",
-    "location": "US-VA",
-    "deployment_model": "GLOBAL",
     "security": {},
     "hosting": {
         "enabled": true,
