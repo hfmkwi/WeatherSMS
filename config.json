@@ -1,13 +1,6 @@
 {
     "config_version": 20200603,
     "security": {},
-    "hosting": {
-        "enabled": true,
-        "custom_domain": "wttr.moe",
-        "app_default_domain": "sugoisms-ipxdi.mongodbstitch.com",
-        "default_error_path": "",
-        "default_error_code": ""
-    },
     "custom_user_data_config": {
         "enabled": false,
         "mongo_service_id": "5edc18cf7b4cc3d86cc9304c",
